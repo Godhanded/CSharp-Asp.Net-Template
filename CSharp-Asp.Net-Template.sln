@@ -1,25 +1,48 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.11.35222.181
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-Asp.Net-Template.Web", "src\CSharp-Asp.Net-Template.Web\CSharp-Asp.Net-Template.Web.csproj", "{6CF80E57-0092-48AD-A2E3-91CD4ACFD480}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{368279AA-0D64-45D0-9285-76CF6F3D227D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-Asp.Net-Template.Application", "src\CSharp-Asp.Net-Template.Application\CSharp-Asp.Net-Template.Application.csproj", "{71D57A5B-8C4E-4D25-AAF8-39E746104CFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-Asp.Net-Template.Infrastructure", "src\CSharp-Asp.Net-Template.Infrastructure\CSharp-Asp.Net-Template.Infrastructure.csproj", "{1991184F-CB72-4EFA-A319-21E5E84A9DF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-Asp.Net-Template.Domain", "src\CSharp-Asp.Net-Template.Domain\CSharp-Asp.Net-Template.Domain.csproj", "{7177AD45-F026-446A-84E7-ED66A1B065B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-Asp.Net-Template.Web", "src\CSharp-Asp.Net-Template.Web\CSharp-Asp.Net-Template.Web.csproj", "{2E875585-607F-4111-8B0B-D16A6072F686}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6CF80E57-0092-48AD-A2E3-91CD4ACFD480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CF80E57-0092-48AD-A2E3-91CD4ACFD480}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CF80E57-0092-48AD-A2E3-91CD4ACFD480}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CF80E57-0092-48AD-A2E3-91CD4ACFD480}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {48109685-4549-4707-B91B-B897185E891D}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71D57A5B-8C4E-4D25-AAF8-39E746104CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D57A5B-8C4E-4D25-AAF8-39E746104CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D57A5B-8C4E-4D25-AAF8-39E746104CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D57A5B-8C4E-4D25-AAF8-39E746104CFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1991184F-CB72-4EFA-A319-21E5E84A9DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1991184F-CB72-4EFA-A319-21E5E84A9DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1991184F-CB72-4EFA-A319-21E5E84A9DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1991184F-CB72-4EFA-A319-21E5E84A9DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7177AD45-F026-446A-84E7-ED66A1B065B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7177AD45-F026-446A-84E7-ED66A1B065B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7177AD45-F026-446A-84E7-ED66A1B065B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7177AD45-F026-446A-84E7-ED66A1B065B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E875585-607F-4111-8B0B-D16A6072F686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E875585-607F-4111-8B0B-D16A6072F686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E875585-607F-4111-8B0B-D16A6072F686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E875585-607F-4111-8B0B-D16A6072F686}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71D57A5B-8C4E-4D25-AAF8-39E746104CFF} = {368279AA-0D64-45D0-9285-76CF6F3D227D}
+		{1991184F-CB72-4EFA-A319-21E5E84A9DF7} = {368279AA-0D64-45D0-9285-76CF6F3D227D}
+		{7177AD45-F026-446A-84E7-ED66A1B065B5} = {368279AA-0D64-45D0-9285-76CF6F3D227D}
+		{2E875585-607F-4111-8B0B-D16A6072F686} = {368279AA-0D64-45D0-9285-76CF6F3D227D}
 	EndGlobalSection
 EndGlobal
