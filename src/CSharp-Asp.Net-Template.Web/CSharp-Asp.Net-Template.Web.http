@@ -1,0 +1,6 @@
+@CSharp_Asp.Net_Template.Web_HostAddress = http://localhost:5107
+
+GET {{CSharp_Asp.Net_Template.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
