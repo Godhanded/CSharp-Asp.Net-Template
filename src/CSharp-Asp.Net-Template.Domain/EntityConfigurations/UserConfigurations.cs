@@ -17,9 +17,9 @@ namespace CSharp_Asp.Net_Template.Domain.EntityConfigurations
                 .IsRequired();
             builder.Property(u => u.Email)
                 .IsRequired();
-            builder.Property(u=>u.Password)
+            builder.Property(u => u.Password)
                 .IsRequired();
-            builder.Property(u=>u.PasswordSalt)
+            builder.Property(u => u.PasswordSalt)
                 .IsRequired();
             builder.Property(u => u.Status)
                 .HasConversion<string>();

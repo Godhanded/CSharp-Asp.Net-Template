@@ -15,4 +15,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CSharp-Asp.Net-Template.Application\CSharp-Asp.Net-Template.Application.csproj" />
+    <ProjectReference Include="..\CSharp-Asp.Net-Template.Infrastructure\CSharp-Asp.Net-Template.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

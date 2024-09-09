@@ -7,7 +7,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces
     {
         Task<T?> GetAsync(Guid id);
 
-        Task<T?> GetBySpecAsync(Expression<Func<T,bool>> predicate, params Expression<Func<T,object>>[] includeProperties);
+        Task<T?> GetBySpecAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
 
         Task<IEnumerable<T>> GetAllBySpecAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);

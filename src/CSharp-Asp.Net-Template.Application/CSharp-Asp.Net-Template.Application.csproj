@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CSharp-Asp.Net-Template.Domain\CSharp-Asp.Net-Template.Domain.csproj" />
+    <ProjectReference Include="..\CSharp-Asp.Net-Template.Infrastructure\CSharp-Asp.Net-Template.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
