@@ -1,4 +1,4 @@
-﻿namespace CSharp_Asp.Net_Template.Infrastructure.Utilities.Configurations
+﻿namespace CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings
 {
     public class Jwt
     {

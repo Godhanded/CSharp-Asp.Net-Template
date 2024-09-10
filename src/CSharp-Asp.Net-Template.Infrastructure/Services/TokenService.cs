@@ -1,6 +1,6 @@
 ﻿using CSharp_Asp.Net_Template.Domain.Entities;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
-using CSharp_Asp.Net_Template.Infrastructure.Utilities.Configurations;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;

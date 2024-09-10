@@ -3,7 +3,7 @@ using CSharp_Asp.Net_Template.Infrastructure.Repository;
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
-using CSharp_Asp.Net_Template.Infrastructure.Utilities.Configurations;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

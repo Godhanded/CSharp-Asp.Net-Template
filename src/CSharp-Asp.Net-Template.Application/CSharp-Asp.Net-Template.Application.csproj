@@ -8,8 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CSharp-Asp.Net-Template.Domain\CSharp-Asp.Net-Template.Domain.csproj" />
     <ProjectReference Include="..\CSharp-Asp.Net-Template.Infrastructure\CSharp-Asp.Net-Template.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\UserManagement\Commands\" />
+    <Folder Include="Features\UserManagement\Dtos\" />
+    <Folder Include="Features\UserManagement\Handlers\" />
+    <Folder Include="Features\UserManagement\Mappers\" />
+    <Folder Include="Features\UserManagement\Queries\" />
   </ItemGroup>
 
 </Project>

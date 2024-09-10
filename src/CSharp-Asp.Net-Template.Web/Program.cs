@@ -1,3 +1,4 @@
+using CSharp_Asp.Net_Template.Application;
 using CSharp_Asp.Net_Template.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructureConfig(builder.Configuration);
+builder.Services.AddApplicationConfig(builder.Configuration);
 
 var app = builder.Build();
 
@@ -19,7 +21,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
