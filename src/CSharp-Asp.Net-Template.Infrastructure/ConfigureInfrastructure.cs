@@ -27,6 +27,9 @@ namespace CSharp_Asp.Net_Template.Infrastructure
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IAuthenticatedService, AuthenticatedService>();
+            services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+
+            services.AddTransient<SeederService>();
 
             services.AddHttpContextAccessor();
             return services;
