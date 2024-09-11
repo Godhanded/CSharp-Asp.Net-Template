@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\UserManagement\Commands\" />
-    <Folder Include="Features\UserManagement\Dtos\" />
-    <Folder Include="Features\UserManagement\Handlers\" />
-    <Folder Include="Features\UserManagement\Mappers\" />
     <Folder Include="Features\UserManagement\Queries\" />
   </ItemGroup>
 
