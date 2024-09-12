@@ -7,6 +7,7 @@ using CSharp_Asp.Net_Template.Domain.Entities;
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
 {
@@ -22,7 +23,9 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
             var userExists = await _userRepository
                 .GetBySpecAsync(u => u.Email == request.RegisterRequest.Email);
             if (userExists is not null)
-                return new FailureResponseDto<UserLoginResponseDto>();
+                return new FailureResponseDto<UserLoginResponseDto>(
+                    message: "This User Already Exists",
+                    statusCode: StatusCodes.Status403Forbidden);
 
             var user = _mapper.Map<User>(request.RegisterRequest);
             (user.PasswordSalt, user.Password) = _passwordService
@@ -34,10 +37,9 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
             var accessToken = _tokenService.GenerateJwt(user);
             var newUser = _mapper.Map<UserDto>(user);
 
-            return new SuccessResponseDto<UserLoginResponseDto>
-            {
-                Data = new() { AccessToken = accessToken, User = newUser }
-            };
+            return new SuccessResponseDto<UserLoginResponseDto>(
+                data: new() { AccessToken = accessToken, User = newUser },
+                statusCode: StatusCodes.Status201Created);
         }
     }
 }
