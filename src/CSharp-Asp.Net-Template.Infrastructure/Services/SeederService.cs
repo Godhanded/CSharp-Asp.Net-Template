@@ -19,6 +19,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
             _passwordService = passwordService;
             _logger = logger;
             _entityIds = [];
+            PreGenerateIds();
         }
 
         private void PreGenerateIds()
@@ -30,8 +31,9 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
 
         }
 
-        public async void SeedUsers()
+        public async Task SeedUsers()
         {
+            if (_dbContext.Users.Any()) return;
             _logger.LogDebug("Inserting seed users");
             try
             {

@@ -14,7 +14,6 @@ namespace CSharp_Asp.Net_Template.Infrastructure
     {
         public static IServiceCollection AddInfrastructureConfig(this IServiceCollection services, IConfiguration configs)
         {
-            services.AddScoped<DbContext, AppDbContext>();
             services.AddDbContext<AppDbContext>(opt =>
                         opt.UseNpgsql(
                             configs.GetConnectionString("Postgres"))

@@ -1,7 +1,10 @@
 using CSharp_Asp.Net_Template.Application;
 using CSharp_Asp.Net_Template.Infrastructure;
 using CSharp_Asp.Net_Template.Web.Extensions;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilogConfiguredLogger();
 
 // Add services to the container.
 
@@ -13,6 +16,7 @@ builder.Services.AddInfrastructureConfig(builder.Configuration);
 builder.Services.AddApplicationConfig(builder.Configuration);
 
 var app = builder.Build();
+await app.MigrateAndSeedDataBase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -29,6 +33,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseSerilogRequestLogging();
 
 app.UseAuthentication();
 

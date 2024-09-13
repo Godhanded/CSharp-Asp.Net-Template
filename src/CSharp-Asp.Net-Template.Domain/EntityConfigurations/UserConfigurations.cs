@@ -15,6 +15,8 @@ namespace CSharp_Asp.Net_Template.Domain.EntityConfigurations
                 .IsRequired();
             builder.Property(u => u.LastName)
                 .IsRequired();
+            builder.Property(u => u.AvatarUrl)
+                .IsRequired(false);
             builder.Property(u => u.Email)
                 .IsRequired();
             builder.Property(u => u.Password)

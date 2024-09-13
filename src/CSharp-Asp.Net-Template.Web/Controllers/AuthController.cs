@@ -10,9 +10,9 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(IMediator mediator) : ControllerBase
+    public class AuthController(ISender mediator) : ControllerBase
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly ISender _mediator = mediator;
 
         /// <summary>
         /// Creates A New User Account
@@ -36,7 +36,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         /// <returns>Logged In User Deatils</returns>
         [HttpGet("@me")]
         [ProducesResponseType(typeof(SuccessResponseDto<UserDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IResponseDto<UserDto>>> GetLoggedInUserDetails()
         {
             var response = await _mediator.Send(new GetLoggedInUserDetailQuery());

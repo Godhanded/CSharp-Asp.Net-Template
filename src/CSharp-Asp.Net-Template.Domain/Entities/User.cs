@@ -5,7 +5,10 @@ namespace CSharp_Asp.Net_Template.Domain.Entities
 {
     public class User : EntityBase
     {
+        [MaxLength(50)]
         public string FirstName { get; set; }
+        [MaxLength(50)]
+
         public string LastName { get; set; }
         public string AvatarUrl { get; set; }
         [EmailAddress]
