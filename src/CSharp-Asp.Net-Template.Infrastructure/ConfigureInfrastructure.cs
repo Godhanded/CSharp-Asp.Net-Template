@@ -3,10 +3,11 @@ using CSharp_Asp.Net_Template.Infrastructure.Repository;
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
-using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace CSharp_Asp.Net_Template.Infrastructure
 {
@@ -21,7 +22,10 @@ namespace CSharp_Asp.Net_Template.Infrastructure
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddSingleton(configs.GetRequiredSection("Jwt").Get<Jwt>()!);
+            services.AddOptions<JwtOptions>()
+                .BindConfiguration("Jwt")
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();

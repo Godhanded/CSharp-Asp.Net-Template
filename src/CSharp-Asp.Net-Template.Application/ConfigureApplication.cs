@@ -1,6 +1,6 @@
 ﻿using CSharp_Asp.Net_Template.Application.Shared.Dtos;
 using CSharp_Asp.Net_Template.Infrastructure.Services;
-using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +35,7 @@ namespace CSharp_Asp.Net_Template.Application
             }).AddJwtBearer(jwtOpt =>
             {
                 jwtOpt.TokenValidationParameters = TokenService.GetTokenValidationParameters(configs.GetSection("Jwt")
-                    .Get<Jwt>()!.SecretKey);
+                    .Get<JwtOptions>()!.SecretKey);
             });
 
             services.AddAuthorization();

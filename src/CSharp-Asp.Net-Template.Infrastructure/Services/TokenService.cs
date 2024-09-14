@@ -1,6 +1,7 @@
 ﻿using CSharp_Asp.Net_Template.Domain.Entities;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
-using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationSettings;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
@@ -8,9 +9,9 @@ using System.Text;
 
 namespace CSharp_Asp.Net_Template.Infrastructure.Services
 {
-    public class TokenService(Jwt jwtConfig) : ITokenService
+    public class TokenService(IOptions<JwtOptions> jwtConfig) : ITokenService
     {
-        private readonly Jwt _jwtConfig = jwtConfig;
+        private readonly JwtOptions _jwtConfig = jwtConfig.Value;
 
         public static TokenValidationParameters GetTokenValidationParameters(string secretKey) => new()
         {

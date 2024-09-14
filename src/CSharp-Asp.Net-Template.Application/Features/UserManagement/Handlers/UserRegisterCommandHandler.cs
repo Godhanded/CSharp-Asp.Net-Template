@@ -31,10 +31,12 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
             (user.PasswordSalt, user.Password) = _passwordService
                 .GeneratePasswordSaltAndHash(request.RegisterRequest.Password);
 
+
             await _userRepository.AddAsync(user);
+            var accessToken = _tokenService.GenerateJwt(user);
+
             await _userRepository.SaveChangesAsync();
 
-            var accessToken = _tokenService.GenerateJwt(user);
             var newUser = _mapper.Map<UserDto>(user);
 
             return new SuccessResponseDto<UserLoginResponseDto>(
