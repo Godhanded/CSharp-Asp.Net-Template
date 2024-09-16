@@ -6,16 +6,18 @@ using CSharp_Asp.Net_Template.Application.Shared.Interfaces;
 using CSharp_Asp.Net_Template.Domain.Entities;
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
+using CSharp_Asp.Net_Template.Infrastructure.Utilities.MailModels;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
 {
-    public class UserRegisterCommandHandler(IRepository<User> userRepository, IPasswordService passwordService, ITokenService tokenService, IMapper mapper) : IRequestHandler<UserRegisterCommand, IResponseDto<UserLoginResponseDto>>
+    public class UserRegisterCommandHandler(IRepository<User> userRepository, IPasswordService passwordService, ITokenService tokenService, IEmailService emailService, IMapper mapper) : IRequestHandler<UserRegisterCommand, IResponseDto<UserLoginResponseDto>>
     {
         private readonly IRepository<User> _userRepository = userRepository;
         private readonly IPasswordService _passwordService = passwordService;
         private readonly ITokenService _tokenService = tokenService;
+        private readonly IEmailService _emailService = emailService;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IResponseDto<UserLoginResponseDto>> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
@@ -36,6 +38,11 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
             var accessToken = _tokenService.GenerateJwt(user);
 
             await _userRepository.SaveChangesAsync();
+
+            var mailRequest = new MailRequest(user.Email, "Welcome", "WelcomeEmail");
+            var welcomeModel = new WelcomeMailModel(user.Email, user.FirstName, user.CreatedAt);
+
+            _emailService.SendEmailAsync(mailRequest, welcomeModel);
 
             var newUser = _mapper.Map<UserDto>(user);
 

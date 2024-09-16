@@ -7,6 +7,7 @@ using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RazorLight;
 
 
 namespace CSharp_Asp.Net_Template.Infrastructure
@@ -26,13 +27,23 @@ namespace CSharp_Asp.Net_Template.Infrastructure
                 .BindConfiguration("Jwt")
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
+            services.Configure<MailOptions>(configs.GetSection("Mail"));
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IAuthenticatedService, AuthenticatedService>();
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddTransient<SeederService>();
+
+            services.AddSingleton<RazorLightEngine>(sp => new RazorLightEngineBuilder()
+                   .UseEmbeddedResourcesProject(typeof(ConfigureInfrastructure)) // or UseFileSystemProject if loading from the filesystem
+                   .SetOperatingAssembly(typeof(EmailService).Assembly)
+                   .UseMemoryCachingProvider()
+                   .EnableDebugMode(true)
+                   .Build()
+            );
 
             services.AddHttpContextAccessor();
             return services;

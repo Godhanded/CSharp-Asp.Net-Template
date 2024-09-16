@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Dtos
 {

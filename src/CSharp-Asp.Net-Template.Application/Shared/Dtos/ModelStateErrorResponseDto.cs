@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Net;
-using System.Text.Json.Serialization;
+﻿using System.Net;
 
 namespace CSharp_Asp.Net_Template.Application.Shared.Dtos
 {

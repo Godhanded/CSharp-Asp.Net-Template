@@ -23,7 +23,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> RegisterUser(UserRegisterDto registerDto)
+        public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> RegisterUser([FromBody] UserRegisterDto registerDto)
         {
             var command = new UserRegisterCommand(registerDto);
             var response = await _mediator.Send(command);
