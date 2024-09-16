@@ -11,6 +11,7 @@ builder.Host.UseSerilogConfiguredLogger();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddRateLimiter();
 
 builder.Services.AddInfrastructureConfig(builder.Configuration);
 builder.Services.AddApplicationConfig(builder.Configuration);
@@ -35,6 +36,8 @@ app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseSerilogRequestLogging();
+
+app.UseRateLimiter();
 
 app.UseAuthentication();
 

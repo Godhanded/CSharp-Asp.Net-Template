@@ -5,6 +5,7 @@ using CSharp_Asp.Net_Template.Application.Shared.Dtos;
 using CSharp_Asp.Net_Template.Application.Shared.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace CSharp_Asp.Net_Template.Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         /// <param name="registerDto"></param>
         /// <returns>Created User Deatils</returns>
         [HttpPost("register")]
+        [EnableRateLimiting("IpWindowLimit")]
         [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
@@ -35,6 +37,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         /// </summary>
         /// <returns>Logged In User Deatils</returns>
         [HttpGet("@me")]
+        [EnableRateLimiting("IpConcurrencyLimit")]
         [ProducesResponseType(typeof(SuccessResponseDto<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IResponseDto<UserDto>>> GetLoggedInUserDetails()
