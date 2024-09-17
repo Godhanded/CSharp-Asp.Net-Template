@@ -4,6 +4,7 @@ using CSharp_Asp.Net_Template.Application.Features.UserManagement.Queries;
 using CSharp_Asp.Net_Template.Application.Shared.Dtos;
 using CSharp_Asp.Net_Template.Application.Shared.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -11,6 +12,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController(ISender mediator) : ControllerBase
     {
         private readonly ISender _mediator = mediator;
@@ -22,6 +24,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         /// <returns>Created User Deatils</returns>
         [HttpPost("register")]
         [EnableRateLimiting("IpWindowLimit")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
@@ -40,6 +43,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         [EnableRateLimiting("IpConcurrencyLimit")]
         [ProducesResponseType(typeof(SuccessResponseDto<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IResponseDto<UserDto>>> GetLoggedInUserDetails()
         {
             var response = await _mediator.Send(new GetLoggedInUserDetailQuery());

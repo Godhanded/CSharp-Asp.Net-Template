@@ -2,7 +2,7 @@
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.JsonWebTokens;
+using System.Security.Claims;
 
 namespace CSharp_Asp.Net_Template.Infrastructure.Services
 {
@@ -25,7 +25,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
             if (httpContext?.User is null)
                 return null;
 
-            var userId = httpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            var userId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (Guid.TryParse(userId, out Guid result))
                 return result;
             return null;

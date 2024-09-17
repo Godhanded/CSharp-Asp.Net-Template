@@ -2,6 +2,7 @@
 using CSharp_Asp.Net_Template.Infrastructure.Services;
 using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,22 @@ namespace CSharp_Asp.Net_Template.Application
             {
                 jwtOpt.TokenValidationParameters = TokenService.GetTokenValidationParameters(configs.GetSection("Jwt")
                     .Get<JwtOptions>()!.SecretKey);
+
+                jwtOpt.Events = new JwtBearerEvents
+                {
+                    OnChallenge = async ctx =>
+                    {
+                        ctx.HandleResponse();
+                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        ctx.Response.ContentType = "application/json";
+
+                        await ctx.Response.WriteAsJsonAsync(new FailureResponseDto<object>
+                        {
+                            StatusCode = StatusCodes.Status401Unauthorized,
+                            Message = $"Authentication Failed: {ctx.Error ?? string.Empty}",
+                        });
+                    }
+                };
             });
 
             services.AddAuthorization();
