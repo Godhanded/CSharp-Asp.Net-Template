@@ -49,5 +49,20 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
             var response = await _mediator.Send(new GetLoggedInUserDetailQuery());
             return StatusCode(response.StatusCode, response);
         }
+
+        /// <summary>
+        /// Login User Account
+        /// </summary>
+        /// <param name="loginRequestDto"></param>
+        [HttpPost("login")]
+        [EnableRateLimiting("IpConcurrencyLimit")]
+        [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> LoginUser(UserLoginRequestDto loginRequestDto)
+        {
+            var command = new UserLoginCommand(loginRequestDto);
+            var response = await _mediator.Send(command);
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }
