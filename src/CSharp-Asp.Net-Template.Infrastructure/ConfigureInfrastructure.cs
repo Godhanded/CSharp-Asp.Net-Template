@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RazorLight;
+using Stripe;
+using TokenService = CSharp_Asp.Net_Template.Infrastructure.Services.TokenService;
 
 
 namespace CSharp_Asp.Net_Template.Infrastructure
@@ -28,6 +30,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
             services.Configure<MailOptions>(configs.GetSection("Mail"));
+            services.Configure<StripeOptions>(configs.GetSection("Payments:Stripe"));
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
@@ -36,6 +39,11 @@ namespace CSharp_Asp.Net_Template.Infrastructure
             services.AddTransient<IEmailService, EmailService>();
 
             services.AddTransient<SeederService>();
+            services.AddTransient<IStripeClient>(provider =>
+                new StripeClient(configs
+                .GetSection("Payments:Stripe")
+                .GetValue<string>("SecreteKey"))
+                );
 
             services.AddSingleton<RazorLightEngine>(sp => new RazorLightEngineBuilder()
                    .UseEmbeddedResourcesProject(typeof(ConfigureInfrastructure)) // or UseFileSystemProject if loading from the filesystem
