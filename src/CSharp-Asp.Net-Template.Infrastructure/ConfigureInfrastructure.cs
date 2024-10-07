@@ -3,6 +3,7 @@ using CSharp_Asp.Net_Template.Infrastructure.Repository;
 using CSharp_Asp.Net_Template.Infrastructure.Repository.Interfaces;
 using CSharp_Asp.Net_Template.Infrastructure.Services;
 using CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces;
+using CSharp_Asp.Net_Template.Infrastructure.Services.Payments;
 using CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure
             services.Configure<MailOptions>(configs.GetSection("Mail"));
             services.Configure<StripeOptions>(configs.GetSection("Payments:Stripe"));
 
+            services.AddScoped<StripeService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IAuthenticatedService, AuthenticatedService>();

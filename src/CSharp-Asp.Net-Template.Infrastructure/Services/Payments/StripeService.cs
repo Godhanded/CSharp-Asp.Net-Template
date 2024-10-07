@@ -5,7 +5,7 @@ using Stripe.Checkout;
 
 namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
 {
-    internal class StripeService(IOptions<StripeOptions> stripeOptions, IStripeClient stripeClient)
+    public class StripeService(IOptions<StripeOptions> stripeOptions, IStripeClient stripeClient)
     {
         private readonly IOptions<StripeOptions> _stripeOptions = stripeOptions;
         private readonly IStripeClient _stripeClient = stripeClient;
@@ -17,7 +17,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
             return await session.CreateAsync(sessionCreateOptions);
         }
 
-        public SessionCreateOptions GetCheckoutOptions(string CustomerEmail, string priceId, string checkoutMode = "Subscription")
+        public SessionCreateOptions GetCheckoutOptions(string CustomerEmail, string priceId, string checkoutMode = "subscription")
         {
             return new SessionCreateOptions
             {

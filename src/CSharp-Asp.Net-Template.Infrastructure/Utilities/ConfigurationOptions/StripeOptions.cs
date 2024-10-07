@@ -1,6 +1,6 @@
 ﻿namespace CSharp_Asp.Net_Template.Infrastructure.Utilities.ConfigurationOptions
 {
-    internal class StripeOptions
+    public class StripeOptions
     {
         public string PublicKey { get; set; }
         public string SecreteKey { get; set; }

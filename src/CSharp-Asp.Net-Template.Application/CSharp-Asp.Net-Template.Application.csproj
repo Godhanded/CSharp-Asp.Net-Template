@@ -18,4 +18,10 @@
     <ProjectReference Include="..\CSharp-Asp.Net-Template.Infrastructure\CSharp-Asp.Net-Template.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Payments\Dtos\" />
+    <Folder Include="Features\Payments\Mappers\" />
+    <Folder Include="Features\Payments\Queries\" />
+  </ItemGroup>
+
 </Project>
