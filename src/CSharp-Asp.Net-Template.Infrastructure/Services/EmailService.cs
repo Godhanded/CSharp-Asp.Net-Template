@@ -40,9 +40,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
 
                     var bodyBuilder = new BodyBuilder();
                     if (mailRequest.Attachments is not null)
-                    {
                         ProcessAttachements(mailRequest, bodyBuilder);
-                    }
                     bodyBuilder.HtmlBody = await RenderEmailTemplate(mailRequest.Template, model);
 
                     email.Body = bodyBuilder.ToMessageBody();
