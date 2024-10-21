@@ -38,6 +38,7 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="Templates\WelcomeEmail.cshtml" />
+		<EmbeddedResource Include="Templates\ResetPasswordRequestEmail.cshtml" />
 	</ItemGroup>
 
 </Project>

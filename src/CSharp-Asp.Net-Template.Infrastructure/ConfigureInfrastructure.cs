@@ -31,6 +31,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
             services.Configure<MailOptions>(configs.GetSection("Mail"));
+            services.Configure<GeneralConfigOptions>(configs.GetSection("General"));
             services.Configure<StripeOptions>(configs.GetSection("Payments:Stripe"));
 
             services.AddScoped<StripeService>();

@@ -18,5 +18,6 @@ namespace CSharp_Asp.Net_Template.Domain.Entities
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
         public TransactionStatus Status { get; set; }
+        public ICollection<UserToken> UserTokens { get; set; } = [];
     }
 }

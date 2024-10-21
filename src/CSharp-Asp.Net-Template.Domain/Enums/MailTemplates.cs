@@ -3,5 +3,6 @@
     public enum MailTemplates
     {
         WelcomeEmail,
+        ResetPasswordRequestEmail
     }
 }

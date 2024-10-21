@@ -64,5 +64,19 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
             var response = await _mediator.Send(command);
             return StatusCode(response.StatusCode, response);
         }
+
+        /// <summary>
+        /// Reset User Password Request
+        /// </summary>
+        /// <param name="resetPasswordRequest"></param>
+        [HttpPost("resetRequest")]
+        [EnableRateLimiting("IpConcurrencyLimit")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessResponseDto<object>), StatusCodes.Status202Accepted)]
+        public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> ResetPasswordRequest(ResetPasswordRequestCommand resetPasswordRequest)
+        {
+            var response = await _mediator.Send(resetPasswordRequest);
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

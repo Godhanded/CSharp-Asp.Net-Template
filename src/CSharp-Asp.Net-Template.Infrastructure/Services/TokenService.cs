@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CSharp_Asp.Net_Template.Infrastructure.Services
@@ -46,6 +47,25 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
             };
 
             return new JsonWebTokenHandler().CreateToken(tokenDescriptor);
+        }
+
+        public (string token, string tokenHash) GenerateRandomToken()
+        {
+            var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(count: 64));
+            var tokenHash = ComputeSha256Hash(token);
+            return (token, tokenHash);
+        }
+
+        private static string ComputeSha256Hash(string rawToken)
+        {
+            var digest = SHA256.HashData(Encoding.UTF8.GetBytes(rawToken));
+
+            var builder = new StringBuilder();
+            for (int i = 0; i < digest.Length; i++)
+            {
+                builder.Append(digest[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
 
         private static SymmetricSecurityKey GetSecurityKey(string secretKey)

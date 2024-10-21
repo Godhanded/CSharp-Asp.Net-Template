@@ -13,7 +13,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.Payments.Handlers
 
         public async Task<IResponseDto<Session>> Handle(CreateStripeChechoutSessionCommand request, CancellationToken cancellationToken)
         {
-            var checkoutOptions= _stripeService.GetCheckoutOptions(request.Email,request.PriceId);
+            var checkoutOptions = _stripeService.GetCheckoutOptions(request.Email, request.PriceId);
             var session = await _stripeService.CreateCheckoutSession(checkoutOptions);
 
             return new SuccessResponseDto<Session>(session);

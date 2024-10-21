@@ -7,5 +7,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Interfaces
         public string GenerateJwt(User userData);
         public string GenerateJwt(User userData, int expireInMinutes);
 
+        public (string token, string tokenHash) GenerateRandomToken();
+
     }
 }
