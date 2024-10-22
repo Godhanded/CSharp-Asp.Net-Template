@@ -21,7 +21,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Dtos
         [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d).{8,}$",
             ErrorMessage = "Password must contain at least one letter and one number")]
         public string Password { get; set; }
-        [Required]
+        [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }

@@ -58,7 +58,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Repository
             IQueryable<T> entities = _dbContext.Set<T>().AsNoTracking();
 
             foreach (var property in includeProperties)
-                entities.Include(property);
+                entities = entities.Include(property);
 
             return await entities.ToListAsync();
         }
@@ -70,7 +70,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Repository
                                         .Where(predicate);
 
             foreach (var property in includeProperties)
-                entities.Include(property);
+                entities = entities.Include(property);
 
             return await entities.ToListAsync();
 
@@ -89,7 +89,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Repository
                                                 .Where(predicate);
 
             foreach (var property in includeProperties)
-                entity.Include(property);
+                entity = entity.Include(property);
 
             return await entity.FirstOrDefaultAsync();
         }

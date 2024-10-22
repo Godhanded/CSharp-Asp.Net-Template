@@ -6,6 +6,6 @@
         public string? Token { get; set; } // Hashed token
         public DateTime ExpirationDate { get; set; }
         public bool Used { get; set; } = false;
-        public User? User { get; set; }
+        public User User { get; set; }
     }
 }

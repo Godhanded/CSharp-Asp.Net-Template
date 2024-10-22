@@ -56,7 +56,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services
             return (token, tokenHash);
         }
 
-        private static string ComputeSha256Hash(string rawToken)
+        public string ComputeSha256Hash(string rawToken)
         {
             var digest = SHA256.HashData(Encoding.UTF8.GetBytes(rawToken));
 

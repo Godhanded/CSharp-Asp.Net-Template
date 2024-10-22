@@ -28,6 +28,7 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> RegisterUser([FromBody] UserRegisterDto registerDto)
         {
             var command = new UserRegisterCommand(registerDto);
@@ -56,8 +57,10 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         /// <param name="loginRequestDto"></param>
         [HttpPost("login")]
         [EnableRateLimiting("IpConcurrencyLimit")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessResponseDto<UserLoginResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(FailureResponseDto<>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> LoginUser(UserLoginRequestDto loginRequestDto)
         {
             var command = new UserLoginCommand(loginRequestDto);
@@ -73,9 +76,26 @@ namespace CSharp_Asp.Net_Template.Web.Controllers
         [EnableRateLimiting("IpConcurrencyLimit")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessResponseDto<object>), StatusCodes.Status202Accepted)]
-        public async Task<ActionResult<IResponseDto<UserLoginResponseDto>>> ResetPasswordRequest(ResetPasswordRequestCommand resetPasswordRequest)
+        [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IResponseDto<object>>> ResetPasswordRequest(ResetPasswordRequestCommand resetPasswordRequest)
         {
             var response = await _mediator.Send(resetPasswordRequest);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        /// <summary>
+        /// Reset User Password
+        /// </summary>
+        /// <param name="resetPasswordCommand"></param>
+        [HttpPost("resetPassword")]
+        [EnableRateLimiting("IpConcurrencyLimit")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(SuccessResponseDto<object>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FailureResponseDto<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ModelStateErrorResponseDto), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IResponseDto<object>>> ResetPassword(ResetPasswordCommand resetPasswordCommand)
+        {
+            var response = await _mediator.Send(resetPasswordCommand);
             return StatusCode(response.StatusCode, response);
         }
     }
