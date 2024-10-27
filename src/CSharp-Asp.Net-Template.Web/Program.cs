@@ -1,5 +1,6 @@
 using CSharp_Asp.Net_Template.Application;
 using CSharp_Asp.Net_Template.Infrastructure;
+using CSharp_Asp.Net_Template.Web.Exceptions;
 using CSharp_Asp.Net_Template.Web.Extensions;
 using Serilog;
 
@@ -15,6 +16,10 @@ builder.Services.AddRateLimiter();
 
 builder.Services.AddInfrastructureConfig(builder.Configuration);
 builder.Services.AddApplicationConfig(builder.Configuration);
+
+builder.Services.AddExceptionHandler<StripeExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 await app.MigrateAndSeedDataBase();
@@ -34,6 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.UseSerilogRequestLogging();
 
