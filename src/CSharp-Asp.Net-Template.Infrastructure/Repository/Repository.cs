@@ -106,8 +106,14 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Repository
 
         public Task UpdateAsync(T entity)
         {
-            var updatedEntity = _dbContext.Set<T>().Update(entity);
-            return Task.FromResult(updatedEntity);
+            // Attach entity if not already tracked
+            if (_dbContext.Entry(entity).State == EntityState.Detached)
+            {
+                _dbContext.Attach(entity);
+            }
+
+            _dbContext.Set<T>().Update(entity); // Mark entity as modified
+            return Task.CompletedTask;
         }
     }
 }

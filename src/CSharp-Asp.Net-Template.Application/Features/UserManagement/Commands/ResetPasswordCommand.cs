@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Commands
 {
-    public class ResetPasswordCommand : IRequest<IResponseDto<object>>
+    public class ResetPasswordCommand : IRequest<IResponseDto<object?>>
     {
         [Required]
         public required string Token { get; set; }

@@ -16,7 +16,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
         private readonly ITokenService _tokenService = tokenService;
         private readonly IEmailService _emailService = emailService;
 
-        public async Task<IResponseDto<object>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        public async Task<IResponseDto<object?>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var hashedToken = _tokenService.ComputeSha256Hash(request.Token);
             var userToken = await _userTokenRepository
@@ -28,7 +28,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
                     );
 
             if (userToken is null)
-                return new FailureResponseDto<object>(null, "This Token Is Invalid Or Has Expired", StatusCodes.Status400BadRequest);
+                return new FailureResponseDto<object?>(null, "This Token Is Invalid Or Has Expired", StatusCodes.Status400BadRequest);
 
             (userToken.User.PasswordSalt, userToken.User.Password) = _passwordService
                                                         .GeneratePasswordSaltAndHash(request.Password);
@@ -36,7 +36,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.UserManagement.Handlers
             await _userTokenRepository.UpdateAsync(userToken);
             await _userTokenRepository.SaveChangesAsync();
 
-            return new SuccessResponseDto<object>(null, "Password Reset Successfully");
+            return new SuccessResponseDto<object?>(null, "Password Reset Successfully");
 
         }
     }

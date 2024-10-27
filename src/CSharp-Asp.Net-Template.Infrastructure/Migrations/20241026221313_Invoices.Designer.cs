@@ -3,6 +3,7 @@ using System;
 using CSharp_Asp.Net_Template.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CSharp_Asp.Net_Template.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026221313_Invoices")]
+    partial class Invoices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +125,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Invoices", (string)null);
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("CSharp_Asp.Net_Template.Domain.Entities.User", b =>
@@ -176,7 +179,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CSharp_Asp.Net_Template.Domain.Entities.UserToken", b =>
@@ -208,7 +211,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("UserTokens");
                 });
 
             modelBuilder.Entity("CSharp_Asp.Net_Template.Domain.Entities.Invoice", b =>

@@ -11,10 +11,12 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration<User>(new UserConfigurations());
+            modelBuilder.ApplyConfiguration<Invoice>(new InvoiceConfiguration());
             modelBuilder.ApplyConfiguration<UserToken>(new UserTokenConfigurations());
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
     }
 }

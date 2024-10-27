@@ -7,7 +7,7 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
 {
     public class StripeService(IOptions<StripeOptions> stripeOptions, IStripeClient stripeClient)
     {
-        private readonly IOptions<StripeOptions> _stripeOptions = stripeOptions;
+        private readonly StripeOptions _stripeOptions = stripeOptions.Value;
         private readonly IStripeClient _stripeClient = stripeClient;
 
         public async Task<Session> CreateCheckoutSession(SessionCreateOptions sessionCreateOptions)
@@ -17,14 +17,14 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
             return await session.CreateAsync(sessionCreateOptions);
         }
 
-        public SessionCreateOptions GetCheckoutOptions(string CustomerEmail, string priceId, string checkoutMode = "subscription")
+        public SessionCreateOptions GetCheckoutOptions(string customerEmail, string? customerId, string priceId, string checkoutMode = "subscription")
         {
-            return new SessionCreateOptions
+            var sessionOptions = new SessionCreateOptions
             {
-                SuccessUrl = _stripeOptions.Value.SuccessUrl,
+                SuccessUrl = _stripeOptions.SuccessUrl,
                 AllowPromotionCodes = true,
-                CancelUrl = _stripeOptions.Value.CancelUrl,
-                CustomerEmail = CustomerEmail,
+                CancelUrl = _stripeOptions.CancelUrl,
+                TaxIdCollection = new() { Enabled = true },
 
                 LineItems = new List<SessionLineItemOptions>
                 {
@@ -33,8 +33,24 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
                         Quantity=1,
                     }
                 },
-                Mode = checkoutMode
+                Mode = checkoutMode,
+                AutomaticTax = new SessionAutomaticTaxOptions { Enabled = true }
             };
+
+            if (customerId is null)
+                sessionOptions.CustomerEmail = customerEmail;
+            else
+            {
+                sessionOptions.Customer = customerId;
+                sessionOptions.CustomerUpdate = new() { Name = "auto" };
+            }
+
+            return sessionOptions;
+        }
+
+        public Event ConstructEvent(string json, string stripeSignature)
+        {
+            return EventUtility.ConstructEvent(json, stripeSignature, _stripeOptions.WHSecrete);
         }
     }
 }

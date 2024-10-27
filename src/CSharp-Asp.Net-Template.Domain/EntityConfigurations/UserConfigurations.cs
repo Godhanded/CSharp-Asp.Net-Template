@@ -12,17 +12,17 @@ namespace CSharp_Asp.Net_Template.Domain.EntityConfigurations
             builder.HasIndex(u => u.Email)
                 .IsUnique();
             builder.Property(u => u.FirstName)
-                .IsRequired();
+                .IsRequired(false);
             builder.Property(u => u.LastName)
-                .IsRequired();
+                .IsRequired(false);
             builder.Property(u => u.AvatarUrl)
                 .IsRequired(false);
             builder.Property(u => u.Email)
                 .IsRequired();
             builder.Property(u => u.Password)
-                .IsRequired();
+                .IsRequired(false);
             builder.Property(u => u.PasswordSalt)
-                .IsRequired();
+                .IsRequired(false);
             builder.Property(u => u.Status)
                 .HasConversion<string>();
         }
