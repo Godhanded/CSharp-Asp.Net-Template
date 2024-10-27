@@ -17,7 +17,7 @@ namespace CSharp_Asp.Net_Template.Web.Exceptions
             var stripeException = exception as StripeException;
 
             var responseObject = new FailureResponseDto<ProblemDetails>();
-            var problemDetails= new ProblemDetails();
+            var problemDetails = new ProblemDetails();
 
             httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
             problemDetails.Instance = httpContext.Request.Path;

@@ -7,7 +7,6 @@ namespace CSharp_Asp.Net_Template.Application.Features.Payments.Commands
     public class CreateStripeChechoutSessionCommand : IRequest<IResponseDto<Session?>>
     {
         public required string PriceId { get; set; }
-        public Guid UserId { get; set; }
 
     }
 }

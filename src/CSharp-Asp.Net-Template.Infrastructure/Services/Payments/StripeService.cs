@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Stripe;
 using Stripe.Checkout;
+using PortalSession = Stripe.BillingPortal.Session;
 
 namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
 {
@@ -13,7 +14,6 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
         public async Task<Session> CreateCheckoutSession(SessionCreateOptions sessionCreateOptions)
         {
             var session = new SessionService(_stripeClient);
-            // TODO: Handle Stripe Exception
             return await session.CreateAsync(sessionCreateOptions);
         }
 
@@ -47,6 +47,18 @@ namespace CSharp_Asp.Net_Template.Infrastructure.Services.Payments
 
             return sessionOptions;
         }
+
+        public async Task<PortalSession> GetCustomerPortalSession(string customerId)
+        {
+            var options = new Stripe.BillingPortal.SessionCreateOptions()
+            {
+                Customer = customerId,
+            };
+
+            var portalService = new Stripe.BillingPortal.SessionService(_stripeClient);
+            return await portalService.CreateAsync(options);
+        }
+
 
         public Event ConstructEvent(string json, string stripeSignature)
         {

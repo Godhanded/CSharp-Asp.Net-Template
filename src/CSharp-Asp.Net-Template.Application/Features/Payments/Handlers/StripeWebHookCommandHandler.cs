@@ -80,7 +80,7 @@ namespace CSharp_Asp.Net_Template.Application.Features.Payments.Handlers
             if (oldCustomer is null) return;
 
 
-            oldCustomer.CurrentPeriodEnd = invoice.Lines.First().Period.End;
+            oldCustomer.CurrentPeriodEnd = invoice.Lines.Last().Period.End;
             oldCustomer.UpdatedAt = DateTime.UtcNow;
             oldCustomer.CustomerId = invoice.CustomerId;
             var inv = _mapper.Map<Invoice>(invoice);

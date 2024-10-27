@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharp_Asp.Net_Template.Web.Exceptions
 {
-    public class GlobalExceptionHandler(IHostEnvironment env):IExceptionHandler
+    public class GlobalExceptionHandler(IHostEnvironment env) : IExceptionHandler
     {
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
             var responseObject = new FailureResponseDto<ProblemDetails>();
-            var problemDetails= new ProblemDetails();
+            var problemDetails = new ProblemDetails();
             problemDetails.Instance = httpContext.Request.Path;
-            if(exception is BaseException e)
+            if (exception is BaseException e)
             {
                 httpContext.Response.StatusCode = e.StatusCode;
                 problemDetails.Title = e.Message;
@@ -29,11 +29,11 @@ namespace CSharp_Asp.Net_Template.Web.Exceptions
                 problemDetails.Title = exception.Message;
                 problemDetails.Detail = exception.StackTrace;
             }
-            
-            responseObject.StatusCode=httpContext.Response.StatusCode;
+
+            responseObject.StatusCode = httpContext.Response.StatusCode;
             responseObject.Data = problemDetails;
 
-            await httpContext.Response.WriteAsJsonAsync(responseObject,cancellationToken)
+            await httpContext.Response.WriteAsJsonAsync(responseObject, cancellationToken)
                 .ConfigureAwait(false);
 
             return true;
